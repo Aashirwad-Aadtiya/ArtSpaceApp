@@ -3,4 +3,17 @@
     <string name="next">Next</string>
     <string name="previous">previous</string>
     <string name="AppTitle">Art Space</string>
+    <string name="page1">When nature is untouched by Human hands</string>
+    <string name="artistPage1">~Mother EARTH</string>
+    <string name="page2">Life sparkling Light </string>
+    <string name="artistPage2">~The Sun</string>
+    <string name="page3">The sky is pink </string>
+    <string name="artistPage3">~I wonder who did this...</string>
+    <string name="page4">Winter is Coming </string>
+    <string name="artistPage4">~Ned Stark</string>
+    <string name="page5">On the way to Mordor </string>
+    <string name="artistPage5">~Gandalf the Green </string>
+    <string name="page6">Beautiful from Outside...Terrible from Inside </string>
+    <string name="artistPage6"> ~The smartest species on earth.</string>
+
 </resources>

@@ -15,7 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -61,7 +65,6 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Space() {
-    val page1 by remember{mutableStateOf(0)}
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -86,14 +89,87 @@ fun Space() {
                 shadowElevation = 4.dp,
                 modifier = Modifier
             ) {
+                var pageCount by remember{mutableStateOf(1)}
+                var imageName = R.drawable.page1
+                var artTitle = R.string.page1
+                var artist = R.string.artistPage1
+                val buttonColors = ButtonDefaults.buttonColors(
+                    containerColor = Color.LightGray,
+                    contentColor = Color.DarkGray
+                )
+                when (pageCount){
+                    1 -> {
+                        imageName = R.drawable.page1
+                        artTitle = R.string.page1
+                        artist = R.string.artistPage1
+
+                    }
+                    2 -> {
+                        imageName = R.drawable.page2
+                        artTitle = R.string.page2
+                        artist = R.string.artistPage2
+                    }
+                    3->{
+                        imageName = R.drawable.page3
+                        artTitle = R.string.page3
+                        artist = R.string.artistPage3
+                    }
+                    4->{
+                        imageName = R.drawable.page4
+                        artTitle = R.string.page4
+                        artist = R.string.artistPage4
+                    }
+                    5->{
+                        imageName = R.drawable.page5
+                        artTitle = R.string.page5
+                        artist = R.string.artistPage5
+                    }
+                    6->{
+                        imageName = R.drawable.page6
+                        artTitle = R.string.page6
+                        artist = R.string.artistPage6
+                    }
+                }
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     Spacer(modifier = Modifier.height(0.dp))
-                    ImageDisplay(R.drawable.pexels_artem_beliaikin_853199)
-                    ArtInfo()
-                    ButtonDisplay(Page = page1)
+                    ImageDisplay(ImageName = imageName)
+                    ArtInfo(ArtTitle = artTitle, Artist = artist)
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ){
+                        Spacer(modifier = Modifier.width(30.dp))
+                        Button(
+                            onClick = {
+                                if (pageCount >1) {pageCount--}
+                                else if (pageCount==1){pageCount=6}
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .height(60.dp),
+                            colors = buttonColors
+                        ){
+                            Text(text= stringResource(R.string.previous))
+                        }
+                        Spacer(modifier = Modifier.width(80.dp))
+                        Button(
+                            onClick = {
+                                if (pageCount <6) {pageCount++}
+                                else if (pageCount==6){pageCount=1}
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .height(60.dp),
+                            colors = buttonColors
+                        ){
+                            Text(text= stringResource(R.string.next))
+                        }
+                        Spacer(modifier = Modifier.width(30.dp))
+                    }
                 }
             }
         }
@@ -115,12 +191,12 @@ fun ImageDisplay(
 }
 
 @Composable
-fun ArtInfo(){
+fun ArtInfo(ArtTitle : Int, Artist : Int){
     Column(
         modifier = Modifier.fillMaxWidth()
     ){
         Text(
-            text = "Artwork Title",
+            text = stringResource(ArtTitle),
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Bold,
@@ -130,7 +206,7 @@ fun ArtInfo(){
             color = Color.White
         )
         Text(
-            text = "Artist (year)",
+            text = stringResource(Artist),
             fontSize = 18.sp,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
@@ -142,39 +218,12 @@ fun ArtInfo(){
     }
 }
 
-@Composable
-fun ButtonDisplay( Page: Int){
+/*@Composable
+fun buttonDisplay( Page: Int): Int{
     var page = Page
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ){
-        Spacer(modifier = Modifier.width(30.dp))
-        Button(
-            onClick = {
-                if (page >=1) {page--}
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .height(60.dp)
-        ){
-            Text(text= stringResource(R.string.previous))
-        }
-        Spacer(modifier = Modifier.width(80.dp))
-        Button(
-            onClick = {
-                if (page <6) {page++}
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .height(60.dp)
-        ){
-            Text(text= stringResource(R.string.next))
-        }
-        Spacer(modifier = Modifier.width(30.dp))
-    }
-}
+
+    return page
+}*/
 
 @Preview(showBackground = false)
 @Composable
